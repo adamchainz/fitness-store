@@ -1,6 +1,6 @@
 {% extends '_base.html' %}
 
-{% load i18n %}
+{% load i18n static %}
 
 {% block head_title %}{% trans "Your Meals" %}{% endblock head_title %}
 
@@ -34,7 +34,7 @@
 
 {% block javascript %}
 
-<script src="https://unpkg.com/htmx.org@1.6.1" integrity="sha384-tvG/2mnCFmGQzYC1Oh3qxQ7CkQ9kMzYjWZSNtrRZygHPDDqottzEJsqS4oUVodhW" crossorigin="anonymous"></script>
+<script src="{% static 'js/htmx.min.js' %}" defer></script>
 
 <script>
   document.body.addEventListener('htmx:configRequest', (event) => {

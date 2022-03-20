@@ -2,3 +2,6 @@
 [x] recipe_list view
 [x] recipe_detail view
 [ ] user's meals view using saved recipes
+[x] add django-htmx package
+[x] add htmx.min.js source
+[x] add hyperscript.min.js source

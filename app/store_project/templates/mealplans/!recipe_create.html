@@ -1,6 +1,7 @@
 {% extends '_base_wide.html' %}
 
-{% load i18n %}
+{% load i18n static django_htmx %}
+{% django_htmx_script %}
 
 {% block head_title %}{% trans "Create a Recipe" %}{% endblock head_title %}
 
@@ -23,15 +24,3 @@
 </div>
 
 {% endblock content %}
-
-{% block javascript %}
-
-<script src="https://unpkg.com/htmx.org@1.6.1" integrity="sha384-tvG/2mnCFmGQzYC1Oh3qxQ7CkQ9kMzYjWZSNtrRZygHPDDqottzEJsqS4oUVodhW" crossorigin="anonymous"></script>
-
-<script>
-  document.body.addEventListener('htmx:configRequest', (event) => {
-    event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
-  })
-</script>
-
-{% endblock javascript %}

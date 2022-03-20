@@ -1,6 +1,7 @@
 {% extends '_base.html' %}
 
-{% load i18n static %}
+{% load i18n static django_htmx %}
+{% django_htmx_script %}
 
 {% block head_title %}{% if category %}{% trans category %} {% endif %}{% trans "Exercises" %}{% endblock head_title %}
 
@@ -65,11 +66,7 @@
   });
 </script>
 
-<script 
-  src="https://unpkg.com/htmx.org@1.5.0" 
-  integrity="sha384-oGA+prIp5Vchu6we2YkI51UtVzN9Jpx2Z7PnR1I78PnZlN8LkrCT4lqqqmDkyrvI" 
-  crossorigin="anonymous">
-</script>
+<script src="{% static 'js/htmx.min.js' %}" defer></script>
 
 <script>
   document.body.addEventListener('htmx:configRequest', (event) => {
