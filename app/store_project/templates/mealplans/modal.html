@@ -1,0 +1,80 @@
+{% load i18n %}
+
+<div id="modal-backdrop" class="modal-backdrop fade show" style="display:block;"></div>
+<div
+  id="modal"
+  class="modal fade show"
+  tabindex="-1"
+  style="display:flex;align-items:center;"
+  _="on keyup[key is 'Escape'] call closeModal()"
+>
+  <div class="box center modal-dialog">
+    <div class="stack-auth-form modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Save Recipe</h2>
+      </div>
+      <div>
+        <form method="POST" action="{% url 'mealplans:modal' %}">
+          <div class="modal-body">
+            {% csrf_token %}
+            <p>
+              {{ create_form.non_field_errors }}
+            </p>
+
+            {% if ingredients and total %}
+              {% include "mealplans/nutrition_label.html" %}
+              {% for field in create_form %}
+                <p>
+                  <label class="stack" for="{{ field.id_for_label }}">
+                    <span>{% trans field.label %}</span>
+                    {{ field }}
+                    {{ field.errors }}
+                  </label>
+                </p>
+              {% endfor %}
+            {% else %}
+            No ingredients! Lookup the recipe before saving.
+            {% endif %}
+
+          </div>
+          <div class="modal-footer">
+            <button 
+              type="submit"
+              class="button"
+              {% if not ingredients and not total %}disabled{% endif %}
+            >
+              Save
+            </button>
+            <button
+              type="button"
+              class="button inherit-colors outlined"
+              _="on click call closeModal()"
+            >
+              Close
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function closeModal() {
+    var container = document.getElementById("modals-here")
+    var backdrop = document.getElementById("modal-backdrop")
+    var modal = document.getElementById("modal")
+
+    modal.classList.remove("show")
+    backdrop.classList.remove("show")
+
+    document.body.style.margin = '';
+    document.body.style.overflow = '';
+    modal.style.display = 'none';
+
+    setTimeout(function() {
+      container.removeChild(backdrop)
+      container.removeChild(modal)
+    }, 200)
+  }
+</script>

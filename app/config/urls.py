@@ -37,6 +37,7 @@ urlpatterns = [
     path("users/", include("store_project.users.urls")),
     path("feed/", include("store_project.feed.urls")),
     path("accounts/", include("allauth.urls")),
+    path("meals/", include("store_project.mealplans.urls")),
     path("", include("store_project.products.urls")),
     path("", include("store_project.pages.urls")),
 ]

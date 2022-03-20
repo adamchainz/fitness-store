@@ -1,0 +1,25 @@
+{% extends '_base.html' %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans recipe.name %}{% endblock head_title %}
+
+{% block content %}
+<h1>{% trans recipe.name %}</h1>
+
+<p><em>{{ recipe.description }}</em></p>
+
+<h2>Instructions</h2>
+<p>{{ recipe.instructions }}</p>
+
+<h2>Ingredients</h2>
+<ul>
+  {% for ingredient in ingredients %}
+    <li>{{ ingredient }}</li>
+  {% endfor %}
+
+</ul>
+
+{% endblock content %}
+
+{% block javascript %}{% endblock javascript %}

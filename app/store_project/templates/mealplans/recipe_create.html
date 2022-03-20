@@ -1,0 +1,37 @@
+{% extends '_base_wide.html' %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Create a Recipe" %}{% endblock head_title %}
+
+{% block content %}
+<h1>{% trans "Create a Recipe" %}</h1>
+
+<div class="cluster">
+  <div>
+    <div class="left">
+      <form class="stack">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="button" type="submit">Create</button>
+      </form>
+    </div>
+    <div class="right">
+      <p>Calculations</p>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
+
+{% block javascript %}
+
+<script src="https://unpkg.com/htmx.org@1.6.1" integrity="sha384-tvG/2mnCFmGQzYC1Oh3qxQ7CkQ9kMzYjWZSNtrRZygHPDDqottzEJsqS4oUVodhW" crossorigin="anonymous"></script>
+
+<script>
+  document.body.addEventListener('htmx:configRequest', (event) => {
+    event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+  })
+</script>
+
+{% endblock javascript %}

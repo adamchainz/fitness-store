@@ -1,0 +1,18 @@
+{% extends '_base.html' %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Recipes" %}{% endblock head_title %}
+
+{% block content %}
+<h1>{% trans "Recipes" %}</h1>
+
+<ul>
+  {% for recipe in recipes %}
+    <li><a href="{% url 'mealplans:recipe_detail' pk=recipe.pk %}">{{ recipe.name }}</a></li>
+  {% endfor %}
+</ul>
+
+{% endblock content %}
+
+{% block javascript %}{% endblock javascript %}

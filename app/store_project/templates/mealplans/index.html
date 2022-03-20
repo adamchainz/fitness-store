@@ -1,0 +1,45 @@
+{% extends '_base.html' %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Your Meals" %}{% endblock head_title %}
+
+{% block content %}
+<h1>{% trans "Your Meals" %}</h1>
+
+{% if macros %}
+  {% include "mealplans/macros.html" %}
+{% endif %}
+
+{% for meal, nutrients in meals.items %}
+  <h3>{{ meal|capfirst }}</h3>
+  <ul>
+    {% for key, value in nutrients.items %}
+      
+      {% if key == "recipe" %}
+        <li>{{ key }}:</li>
+        <ul>
+          {% for ingredient in value %}
+            <li>{{ ingredient.name }}: {{ ingredient.amount|floatformat:"1" }} {{ ingredient.unit }}</li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <li>{{ key }}: {{ value|floatformat:"0" }}</li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+{% endfor %}
+
+{% endblock content %}
+
+{% block javascript %}
+
+<script src="https://unpkg.com/htmx.org@1.6.1" integrity="sha384-tvG/2mnCFmGQzYC1Oh3qxQ7CkQ9kMzYjWZSNtrRZygHPDDqottzEJsqS4oUVodhW" crossorigin="anonymous"></script>
+
+<script>
+  document.body.addEventListener('htmx:configRequest', (event) => {
+    event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+  })
+</script>
+
+{% endblock javascript %}

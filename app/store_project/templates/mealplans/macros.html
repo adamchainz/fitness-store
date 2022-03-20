@@ -1,0 +1,11 @@
+<div class="box light stack">
+  <p>Your macros as of {{ macros.created|date:"l, F j, Y" }}</p>
+  <ul>
+    <li>Goal: {{ macros.get_goal_display }}</li>
+    <li>{{ macros.get_kcals|floatformat:"0" }} kcals</li>
+    <li>{{ macros.get_macros.fat|floatformat:"0" }} g fat</li>
+    <li>{{ macros.get_macros.carbs|floatformat:"0" }} g carbohydrate</li>
+    <li>{{ macros.get_macros.protein|floatformat:"0" }} g protein</li>
+  </ul>
+  <p><a href="{% url 'mealplans:daily_nutrition' %}">Calculate new macros</a></p>
+</div>

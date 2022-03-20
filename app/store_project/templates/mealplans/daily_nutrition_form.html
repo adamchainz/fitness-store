@@ -1,0 +1,21 @@
+{% extends '_base.html' %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Calculate Your Macros" %}{% endblock head_title %}
+
+{% block content %}
+<h1>{% trans "Calculate Your Macros" %}</h1>
+
+{% if macros %}
+  {% include "mealplans/macros.html" %}
+{% endif %}
+    
+<form class="stack" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="button" type="submit">Calculate</button>
+</form>
+    
+{% endblock content %}
+    

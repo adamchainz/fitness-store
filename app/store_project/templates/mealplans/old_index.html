@@ -1,0 +1,54 @@
+{% extends '_base.html' %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Your Meals" %}{% endblock head_title %}
+
+{% block content %}
+<h1>{% trans "Your Meals" %}</h1>
+
+{% if macros %}
+  <div class="box light">
+    <p>Your most recent measurement was {{ macros.created|date:"l, F j, Y" }}</p>
+    <ul>
+      <li>{{ macros.get_goal_display }}</li>
+      <li>{{ macros.get_kcals|floatformat:"0" }} kcals</li>
+      <li>{{ macros.get_macros.fat|floatformat:"0" }} g fat</li>
+      <li>{{ macros.get_macros.carbs|floatformat:"0" }} g carbohydrate</li>
+      <li>{{ macros.get_macros.protein|floatformat:"0" }} g protein</li>
+    </ul>
+  </div>
+{% endif %}
+
+<div class="recipes">
+  <h3>Day 0</h3>
+  
+  <ol>
+  {% for meal in mealplan.0 %}
+    <li>{{ meal.title }}</li>
+    <ul>
+      <li>{{ meal.calories }} kcals</li>
+      <li>{{ meal.fat }} fat</li>
+      <li>{{ meal.carbs }} carbs</li>
+      <li>{{ meal.protein }} protein</li>
+    </ul>
+  {% endfor %}
+  </ol>
+
+  <h3>Day 1</h3>
+  
+  <ol>
+    {% for meal in mealplan.1 %}
+      <li>{{ meal.title }}</li>
+      <ul>
+        <li>{{ meal.calories }} kcals</li>
+        <li>{{ meal.fat }} fat</li>
+        <li>{{ meal.carbs }} carbs</li>
+        <li>{{ meal.protein }} protein</li>
+      </ul>
+    {% endfor %}
+  </ol>
+
+</div>
+    
+{% endblock content %}

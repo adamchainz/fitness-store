@@ -1,0 +1,76 @@
+{% extends '_base_wide.html' %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Lookup a Recipe" %}{% endblock head_title %}
+
+{% block content %}
+<h1>{% trans "Lookup a Recipe" %}</h1>
+
+<div class="with-sidebar-right">
+  <div>
+    <div class="left">
+      <form 
+        class="stack"
+        hx-post="{% url 'mealplans:recipe_lookup' %}"
+        hx-target="#nutrition"
+        hx-swap="outerHTML"
+      >
+        {% csrf_token %}
+        <p>
+          {{ lookup_form.non_field_errors }}
+        </p>
+        {% for field in lookup_form %}
+        <p>
+          <label class="stack-auth-form" for="{{ field.id_for_label }}">
+            <span>{% trans field.label %}</span>
+            {{ field }}
+            {{ field.errors }}
+            {% if field.help_text %}
+            <p class="help-text">{{ field.help_text|safe }}</p>
+            {% endif %}
+          </label>
+        </p>
+        {% endfor %}
+        <div class="cluster">
+          <div>
+            <button class="button" type="submit">Lookup</button>
+            <button
+              hx-get="{% url 'mealplans:modal' %}"
+              hx-target="#modals-here"
+              hx-trigger="click"
+              hx-swap="innerHTML swap:10ms"
+              class="button inherit-colors"
+              _="on htmx:afterOnLoad
+                wait 10ms
+                then add .show to #modal
+                then add .show to #modal-backdrop"
+            >
+              Save
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="right">
+      <div id="nutrition"></div>
+    </div>
+  </div>
+</div>
+
+<div id="modals-here"></div>
+
+{% endblock content %}
+
+{% block javascript %}
+
+<script src="https://unpkg.com/htmx.org@1.6.1" integrity="sha384-tvG/2mnCFmGQzYC1Oh3qxQ7CkQ9kMzYjWZSNtrRZygHPDDqottzEJsqS4oUVodhW" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/hyperscript.org@0.9.5"></script>
+
+<script>
+  document.body.addEventListener('htmx:configRequest', (event) => {
+    event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+  })
+</script>
+
+{% endblock javascript %}

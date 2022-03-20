@@ -1,11 +1,11 @@
 from django.contrib import admin
 
-from store_project.mealplans.models import BMR
+from store_project.mealplans import models
 
 
-@admin.register(BMR)
-class BMRAdmin(admin.ModelAdmin):
-    """BMR admin view"""
+@admin.register(models.DailyNutrition)
+class DailyNutritionAdmin(admin.ModelAdmin):
+    """DailyNutrition admin view"""
 
     list_display = [
         "user",
@@ -19,4 +19,19 @@ class BMRAdmin(admin.ModelAdmin):
 
     @admin.display()
     def view_kcals(self, obj):
-        return obj.get_mifflin()
+        return obj.get_kcals()
+
+
+@admin.register(models.Ingredient)
+class IngredientAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(models.Recipe)
+class RecipeAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(models.RecipeIngredient)
+class RecipeIngredientAdmin(admin.ModelAdmin):
+    pass

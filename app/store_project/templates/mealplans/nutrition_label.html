@@ -1,0 +1,24 @@
+<div id="nutrition" class="stack">
+
+  <h3>Nutrition Facts</h3>
+
+  <div class="total">
+    <h4>Meal Total</h4>
+    <ul>
+      {% for macro, value in total.items %}
+        <li>{{ macro }}: {{ value.amount|floatformat:"0" }} {{ value.unit }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  
+  {% for one_ingredient in ingredients %}
+    <h4>{{ one_ingredient.amount|floatformat }} {{ one_ingredient.unit }} {{ one_ingredient.originalName }}</h4>
+    <ul>
+      {% for nut in one_ingredient.nutrition.nutrients %}
+        {% if nut.name == "Calories" or nut.name == "Fat" or nut.name == "Net Carbohydrates" or nut.name == "Protein" %}
+          <li>{{ nut.name }}: {{ nut.amount }} {{ nut.unit }}</li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  {% endfor %}
+</div>
